@@ -11,5 +11,8 @@
 		<Root level="trace">
 			<AppenderRef ref="Console" />
 		</Root>
+		<Logger name="org.apache.velocity.loader" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
 	</Loggers>
 </Configuration>
