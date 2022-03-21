@@ -14,6 +14,7 @@ public class UmlDomain {
 	private String typeName;
 	private String maxLength;
 	private String precision;
+	private String scale;
 	
 	/**
 	 * @return the name
@@ -67,10 +68,23 @@ public class UmlDomain {
 	public void setPrecision(String precision) {
 		this.precision = precision;
 	}
+	/**
+	 * @return the scale
+	 */
+	public String getScale() {
+		return scale;
+	}
+	/**
+	 * @param scale the scale to set
+	 */
+	public void setScale(final String scale) {
+		this.scale = scale;
+	}
 	public String toString() {
 		return "\n\t" + name + "(" + typeName + ")" 
 			+ (maxLength != null && !maxLength.equals("0")?" maxLength="+maxLength:""
-			+ (precision != null && !precision.equals("0")?" precision="+precision:"")
+			+ (precision != null && !precision.equals("0")?" precision="+precision:""
+			+ (scale != null && !scale.equals("0") ? " scale=" + scale : ""))
 		);
 	}
 }

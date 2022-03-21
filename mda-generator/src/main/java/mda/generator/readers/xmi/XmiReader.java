@@ -102,11 +102,15 @@ public class XmiReader implements ModelFileReaderInterface {
 					}
 					
 					if("Java".equals(columnNameValue.get("ProductName"))){
+						// Dans EA, menu Code, Configure, Product Name Java
+						// puis menu Configure, Transfer, Export Reference Data : Model Data Types - Code and DDL
+						// -> /model/example_metadata.xml pour la génération
 						UmlDomain umlDomain = new UmlDomain();
 						umlDomain.setName(columnNameValue.get("DataType")); 
 						umlDomain.setTypeName(columnNameValue.get("GenericType"));
 						umlDomain.setMaxLength(columnNameValue.get("MaxLen"));
-						umlDomain.setPrecision(columnNameValue.get("MaxPrec"));
+						umlDomain.setPrecision(columnNameValue.get("DefaultPrec"));
+						umlDomain.setScale(columnNameValue.get("DefaultScale"));
 						domainsMap.put(umlDomain.getName(), umlDomain);
 					}
 				}
