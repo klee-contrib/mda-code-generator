@@ -52,7 +52,7 @@ public class DomainToOracleConverter extends AbstractDomainToJavaConverter {
 		case "java.math.BigDecimal":
 			dbType= "NUMBER(12,2)"; 
 			break;
-		case "Byte[]": 
+		case "byte[]": 
 			dbType= "RAW(" + (domain.getMaxLength()==null || "0".equals(domain.getMaxLength())?"1":domain.getMaxLength())+ ")";
 			break;
 		case "Byte": 
