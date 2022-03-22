@@ -1,7 +1,6 @@
 package mda.generator.utils.file;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystemNotFoundException;
@@ -45,19 +44,4 @@ public class PathUtils {
 			throw new MdaGeneratorException("Unable to understand the path " + classPathOrFilePath,e);
 		}
 	}
-
-	/**
-	 * @return Renvoie l'emplacement sur le fs de l'application
-	 */
-	public static Path getApplicationPath() {
-
-		URI currentUri;
-		try {
-			currentUri = PathUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI();
-		} catch (URISyntaxException e) {
-			throw new MdaGeneratorException("Erreur dans la récupération du path",e);
-		}
-		return Paths.get(currentUri);
-	}
-
 }

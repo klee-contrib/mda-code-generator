@@ -3,7 +3,6 @@ package mda.generator.writers;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.WordUtils;
 
 import mda.generator.beans.UmlAssociation;
 import mda.generator.beans.UmlAttribute;
@@ -116,28 +115,5 @@ public class NamesComputingUtil {
 	 */
 	public static void changeSequencePrefix(String newPrefix) {
 		sequencePrefix = newPrefix;
-	}
-
-
-	/**
-	 * Convert a "snake case" name in "camel case name".
-	 * If there is no "_" in the original name, we just capitalize.
-	 *
-	 * @param originalName Orignal name to convert to camelCase
-	 * @return name in camel case.
-	 */
-	public static String computeCamelCaseName(String originalName) {
-		// If null or empty, no process to do
-		if(StringUtils.isEmpty(originalName)) {
-			return originalName;
-		}
-
-		// If contains at least one "_", we convert it from "snake case" to "camel case"
-		if(originalName.indexOf('_') != -1){
-			return StringUtils.remove(WordUtils.capitalizeFully(originalName, '_'), "_");
-		}
-
-		// No underscore, we juste capitalize
-		return StringUtils.capitalize(originalName);
 	}
 }
