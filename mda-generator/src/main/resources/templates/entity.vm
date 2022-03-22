@@ -60,50 +60,6 @@ $annotation.getDisplay("    ")
     }  
 #end 
 
-## hashcode and equals
-	@Override
-	public int hashCode(){
-	 	// Start with a non-zero constant. Prime is preferred
-	    int result = 17;
-	
-		// Calculating hashcode with all "primitives" attributes
-		#foreach( $attribute in $javaClass.getAttributesList() )
-		#if(!$attribute.getName().equals("serialVersionUID") && $attribute.isPrimitive())
-		result = 31 * result + ($attribute.getName() == null? 0 : ${attribute.getName()}.hashCode());
-		#end
-		#end
-			
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object other){
-		// Null object
-	    if(other == null){
-	    	return false;
-	    }
-	
-		// Same object
-	    if (this == other) {
-	        return true;
-	    }
-	    	
-		// Wrong type
-	    if (this.getClass() !=  other.getClass()) {
-	        return false;
-	    }
-	
-		// Test all "primitives" attributes
-	    $javaClass.getName() other$javaClass.getName() = ($javaClass.getName()) other;
-	    
-		return#foreach( $attribute in $javaClass.getAttributesList() )
-		#if($attribute.isPrimitive())
-#if($foreach.count>1)			&&#end ($attribute.getName() == null ?  (other${javaClass.getName()}.$attribute.getName() == null) : ${attribute.getName()}.equals(other${javaClass.getName()}.$attribute.getName()))
-		#end
-#end		;
-	}
-
-
 
 ## END OF CLASS
 $end_of_generated
