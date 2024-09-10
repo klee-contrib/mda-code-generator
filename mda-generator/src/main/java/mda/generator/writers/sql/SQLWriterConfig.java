@@ -16,7 +16,6 @@ public class SQLWriterConfig {
 
 	private Path createSqlTemplatePath;
 	private Path dropSqlTemplatePath;
-	private Path sqlOutputDirectory;
 	private Path createTablesPath;
 	private Path dropTablesPath;
 	private Iterable<UmlPackage> packagesList;
