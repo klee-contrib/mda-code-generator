@@ -1,6 +1,7 @@
 package mda.generator.converters.type;
 
 import mda.generator.beans.UmlDomain;
+import mda.generator.exceptions.MdaGeneratorException;
 
 /**
  * Convert JAVA types to ORACLE DB types
@@ -50,7 +51,41 @@ public class DomainToOracleConverter extends AbstractDomainToJavaConverter {
 			dbType= "NUMBER(12,2)";
 			break;
 		case "java.math.BigDecimal":
-			dbType= "NUMBER(12,2)"; 
+			if(domain.getScale() == null && domain.getPrecision() == null) {
+				dbType = "NUMBER";
+			} else if(domain.getScale() == null) {
+				// Nombre total de chiffres (= precision)
+				final int precision = Integer.parseInt(domain.getPrecision());
+
+				if(precision <= 0) {
+					throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+						+ " avec une precision inférieure au égale à 0.");
+				}
+				dbType = "NUMBER(" + precision + ')';
+			} else {
+				if(domain.getPrecision() == null) {
+					throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+						+ " avec scale non null et precision null");
+				}
+				// Nombre de chiffres après la virgule (=scale)
+				int scale = Integer.parseInt(domain.getScale());
+				// Nombre total de chiffres (= precision)
+				final int precision = Integer.parseInt(domain.getPrecision());
+
+				if(precision <= 0) {
+					throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+						+ " avec une precision inférieure au égale à 0.");
+				}
+				if(scale > precision) {
+					throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+						+ " avec une scale > precision");
+				}
+				if(scale < 0) {
+					scale = 0;
+				}
+
+				dbType = "NUMBER(" + precision + "," + scale + ")";
+			}
 			break;
 		case "Byte[]": 
 			dbType= "RAW(" + (domain.getMaxLength()==null || "0".equals(domain.getMaxLength())?"1":domain.getMaxLength())+ ")";
