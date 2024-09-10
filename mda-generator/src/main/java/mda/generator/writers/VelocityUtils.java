@@ -44,7 +44,7 @@ public class VelocityUtils {
 				// We keep user edited content
 				if(keepContent) {
 					if(lineAdded) {
-						contentToKeep.append("\n");
+						contentToKeep.append(System.lineSeparator());
 					}else {
 						lineAdded=true;
 					}
