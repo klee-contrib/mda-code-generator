@@ -467,7 +467,7 @@ public class JavaClass {
 								// mapped by
 								new JavaAnnotationProperty("mappedBy","\""+ javaNameConverter.computeFkAttributeName(association.getOpposite())  + "\""),
 								// cascading all
-								new JavaAnnotationProperty("cascade","{"+ importManager.getFinalName("javax.persistence.CascadeType")+".ALL}")
+								new JavaAnnotationProperty("cascade", importManager.getFinalName("javax.persistence.CascadeType")+".ALL")
 								)
 						);
 			}
