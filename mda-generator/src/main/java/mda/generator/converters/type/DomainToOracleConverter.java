@@ -87,7 +87,7 @@ public class DomainToOracleConverter extends AbstractDomainToJavaConverter {
 				dbType = "NUMBER(" + precision + "," + scale + ")";
 			}
 			break;
-		case "Byte[]": 
+		case "byte[]": 
 			dbType= "RAW(" + (domain.getMaxLength()==null || "0".equals(domain.getMaxLength())?"1":domain.getMaxLength())+ ")";
 			break;
 		case "Byte": 

@@ -47,7 +47,7 @@ public abstract class AbstractDomainToJavaConverter implements TypeConverterInte
 			finalType= "java.math.BigDecimal";
 			break;
 		case "byte[]":
-			finalType= "Byte[]";
+			finalType= "byte[]";
 			break;
 		case "blob":
 		case "java.sql.blob":

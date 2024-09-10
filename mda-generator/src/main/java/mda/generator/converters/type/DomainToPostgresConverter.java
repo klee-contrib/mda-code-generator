@@ -92,7 +92,7 @@ public class DomainToPostgresConverter extends AbstractDomainToJavaConverter {
 					dbType = "NUMERIC(" + precision + "," + scale + ")";
 				}
 				break;
-			case "Byte[]":
+			case "byte[]":
 			case "java.sql.Blob":
 				dbType = "BYTEA";
 				break;
