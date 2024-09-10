@@ -2,6 +2,7 @@ package mda.generator.converters.type;
 
 
 import mda.generator.beans.UmlDomain;
+import mda.generator.exceptions.MdaGeneratorException;
 
 
 /**
@@ -54,7 +55,44 @@ public class DomainToPostgresConverter extends AbstractDomainToJavaConverter {
 			case "Double":
 				dbType = "DOUBLE PRECISION";
 				break;
-			case "Byte[]":
+			case "java.math.BigDecimal":
+				if(domain.getScale() == null && domain.getPrecision() == null) {
+					dbType = "NUMERIC";
+				} else if(domain.getScale() == null) {
+					// Nombre total de chiffres (= precision)
+					final int precision = Integer.parseInt(domain.getPrecision());
+
+					if(precision <= 0) {
+						throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+							+ " avec une precision inférieure au égale à 0.");
+					}
+					dbType = "NUMERIC(" + precision + ')';
+				} else {
+					if(domain.getPrecision() == null) {
+						throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+							+ " avec scale non null et precision null");
+					}
+					// Nombre de chiffres après la virgule (=scale)
+					int scale = Integer.parseInt(domain.getScale());
+					// Nombre total de chiffres (= precision)
+					final int precision = Integer.parseInt(domain.getPrecision());
+
+					if(precision <= 0) {
+						throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+							+ " avec une precision inférieure au égale à 0.");
+					}
+					if(scale > precision) {
+						throw new MdaGeneratorException("Impossible de convertir le domaine " + domain.getName()
+							+ " avec une scale > precision");
+					}
+					if(scale < 0) {
+						scale = 0;
+					}
+
+					dbType = "NUMERIC(" + precision + "," + scale + ")";
+				}
+				break;
+			case "byte[]":
 			case "java.sql.Blob":
 				dbType = "BYTEA";
 				break;

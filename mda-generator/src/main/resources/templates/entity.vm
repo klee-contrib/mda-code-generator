@@ -17,7 +17,7 @@ import $import;
 ## ANNOTATIONS
 #foreach( $annotation in $javaClass.getAnnotationsList() )
 $annotation.getDisplay("")
-#end 
+#end
 ## USER DEFINED ANNOTATIONS
 #if($javaClass.getUserDefinedAnnotations())
 #foreach( $annotation in $javaClass.getUserDefinedAnnotations() )
@@ -25,41 +25,40 @@ $annotation
 #end
 #end
 ## CLASS DECLARATION
-$javaClass.getVisibilite().toString() class $javaClass.getName() implements Serializable{
+$javaClass.getVisibilite().toString() class $javaClass.getName() implements Serializable {
 	/** Serial ID */
 	private static final long serialVersionUID = 1L;
 
 ## COMPOSITE KEY
-#if($javaClass.getPkClass())	
-	@EmbeddedId 
+#if($javaClass.getPkClass())
+	@EmbeddedId
 	$javaClass.getPkField().getJavaType() $javaClass.getPkField().getName();
 #end
 ## ATTRIBUTES
 #foreach( $attribute in $javaClass.getAttributesList() )
 	$attribute.getVisibility().toString() $attribute.getJavaType() $attribute.getName()#if($attribute.getDefaultValue()) = $attribute.getDefaultValue()#end;
-#end 
+#end
 
 ## METHODS
 #foreach( $method in $javaClass.getMethodsList() )
 ## METHOD COMMENTS
-    /**
+	/**
 #foreach( $comment in $method.getCommentsList() )
-     * $comment
+	 * $comment
 #end
-     */
+	 */
 ## METHOD ANNOTATION
 #foreach( $annotation in $method.getAnnotationsList() )
-$annotation.getDisplay("    ")
-#end	 
+$annotation.getDisplay("	")
+#end
 ## METHOD DECLARATION
 	$method.getVisibility().toString() $method.getReturnType() $method.getName()($method.getDisplayArgs()){
 ## METHOD BODY
 #foreach($contentLine in $method.getContentLines())
 		$contentLine;
-#end	 
-    }  
-#end 
-
+#end
+	}
+#end
 
 ## END OF CLASS
 $end_of_generated
