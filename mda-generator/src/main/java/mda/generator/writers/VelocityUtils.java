@@ -73,7 +73,7 @@ public class VelocityUtils {
 	 */
 	public static void writeFileFromTemplate(Path filePath, Path templatePath, VelocityContext context, Charset charset) throws IOException {
 		Properties prop = new Properties();
-		prop.setProperty("file.resource.loader.path", templatePath.getParent().toString());
+		prop.setProperty("resource.loader.file.path", templatePath.getParent().toString());
 		Velocity.init(prop);
 
 		Template template = null;
